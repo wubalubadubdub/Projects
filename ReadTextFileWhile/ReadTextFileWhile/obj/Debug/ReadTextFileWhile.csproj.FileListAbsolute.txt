@@ -1,0 +1,7 @@
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\ReadTextFileWhile\ReadTextFileWhile\bin\Debug\ReadTextFileWhile.exe.config
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\ReadTextFileWhile\ReadTextFileWhile\bin\Debug\ReadTextFileWhile.exe
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\ReadTextFileWhile\ReadTextFileWhile\bin\Debug\ReadTextFileWhile.pdb
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\ReadTextFileWhile\ReadTextFileWhile\obj\Debug\ReadTextFileWhile.csprojResolveAssemblyReference.cache
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\ReadTextFileWhile\ReadTextFileWhile\obj\Debug\ReadTextFileWhile.exe
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\ReadTextFileWhile\ReadTextFileWhile\obj\Debug\ReadTextFileWhile.pdb
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\ReadTextFileWhile\ReadTextFileWhile\bin\Debug\values.txt

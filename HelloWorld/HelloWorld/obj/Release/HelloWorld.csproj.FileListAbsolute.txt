@@ -1,0 +1,6 @@
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\HelloWorld\HelloWorld\bin\Release\HelloWorld.exe.config
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\HelloWorld\HelloWorld\bin\Release\HelloWorld.exe
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\HelloWorld\HelloWorld\bin\Release\HelloWorld.pdb
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\HelloWorld\HelloWorld\obj\Release\HelloWorld.csprojResolveAssemblyReference.cache
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\HelloWorld\HelloWorld\obj\Release\HelloWorld.exe
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\HelloWorld\HelloWorld\obj\Release\HelloWorld.pdb

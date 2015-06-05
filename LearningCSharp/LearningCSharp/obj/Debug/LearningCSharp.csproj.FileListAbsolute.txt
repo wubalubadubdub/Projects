@@ -1,0 +1,1 @@
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\LearningCSharp\LearningCSharp\bin\Debug\LearningCSharp.exe.config

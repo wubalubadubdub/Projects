@@ -1,0 +1,6 @@
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\LearningCSharp\LearningCSharp\obj\Debug\Concepts.csprojResolveAssemblyReference.cache
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\LearningCSharp\LearningCSharp\bin\Debug\LearningCSharp.exe.config
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\LearningCSharp\LearningCSharp\bin\Debug\LearningCSharp.exe
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\LearningCSharp\LearningCSharp\bin\Debug\LearningCSharp.pdb
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\LearningCSharp\LearningCSharp\obj\Debug\LearningCSharp.exe
+c:\users\intensiveporpoises\documents\visual studio 2015\Projects\LearningCSharp\LearningCSharp\obj\Debug\LearningCSharp.pdb
