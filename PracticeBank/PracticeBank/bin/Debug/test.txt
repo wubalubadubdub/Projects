@@ -1,0 +1,13 @@
+CustomerAccount
+Bob
+0
+CustomerAccount
+Tom
+50
+ChildAccount
+John
+10
+Dan
+CustomerAccount
+Billy
+23

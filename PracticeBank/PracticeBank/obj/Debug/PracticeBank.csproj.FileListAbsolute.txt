@@ -1,0 +1,6 @@
+C:\Users\intensiveporpoises\Documents\Visual Studio 2015\Projects\PracticeBank\PracticeBank\bin\Debug\PracticeBank.exe.config
+C:\Users\intensiveporpoises\Documents\Visual Studio 2015\Projects\PracticeBank\PracticeBank\bin\Debug\PracticeBank.exe
+C:\Users\intensiveporpoises\Documents\Visual Studio 2015\Projects\PracticeBank\PracticeBank\bin\Debug\PracticeBank.pdb
+C:\Users\intensiveporpoises\Documents\Visual Studio 2015\Projects\PracticeBank\PracticeBank\obj\Debug\PracticeBank.csprojResolveAssemblyReference.cache
+C:\Users\intensiveporpoises\Documents\Visual Studio 2015\Projects\PracticeBank\PracticeBank\obj\Debug\PracticeBank.exe
+C:\Users\intensiveporpoises\Documents\Visual Studio 2015\Projects\PracticeBank\PracticeBank\obj\Debug\PracticeBank.pdb

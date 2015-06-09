@@ -1,0 +1,9 @@
+C:\Users\intensiveporpoises\Documents\Visual Studio 2015\Projects\BlackjackGame\BlackjackGame\bin\Debug\BlackjackGame.exe.config
+C:\Users\intensiveporpoises\Documents\Visual Studio 2015\Projects\BlackjackGame\BlackjackGame\bin\Debug\BlackjackGame.exe
+C:\Users\intensiveporpoises\Documents\Visual Studio 2015\Projects\BlackjackGame\BlackjackGame\bin\Debug\BlackjackGame.pdb
+C:\Users\intensiveporpoises\Documents\Visual Studio 2015\Projects\BlackjackGame\BlackjackGame\obj\Debug\BlackjackGame.csprojResolveAssemblyReference.cache
+C:\Users\intensiveporpoises\Documents\Visual Studio 2015\Projects\BlackjackGame\BlackjackGame\obj\Debug\BlackjackGame.Form1.resources
+C:\Users\intensiveporpoises\Documents\Visual Studio 2015\Projects\BlackjackGame\BlackjackGame\obj\Debug\BlackjackGame.Properties.Resources.resources
+C:\Users\intensiveporpoises\Documents\Visual Studio 2015\Projects\BlackjackGame\BlackjackGame\obj\Debug\BlackjackGame.csproj.GenerateResource.Cache
+C:\Users\intensiveporpoises\Documents\Visual Studio 2015\Projects\BlackjackGame\BlackjackGame\obj\Debug\BlackjackGame.exe
+C:\Users\intensiveporpoises\Documents\Visual Studio 2015\Projects\BlackjackGame\BlackjackGame\obj\Debug\BlackjackGame.pdb
