@@ -19,6 +19,10 @@ namespace BlackjackGame
             "10", "J", "Q", "K", "A" };
         static string[] suits = { "h", "s", "c", "d" };
 
+        static int numDealt = 0;
+
+       
+
 
         private static Random r = new Random();
 
@@ -29,28 +33,28 @@ namespace BlackjackGame
         public static void associateNumsWithCards()
         {
             //add a key,value pair for each int in deck and a string composed of a rank+suit
-            for(int i = 0; i < 52; i++) 
+            for (int i = 0; i < 52; i++)
             {
-               if(i < 13)
+                if (i < 13)
                 {
-                    numsToCards.Add(i, ranks[i] + suits[0]); 
+                    numsToCards.Add(i, ranks[i] + suits[0]);
 
                 }
 
-               if(i >= 13 && i < 26)
+                if (i >= 13 && i < 26)
                 {
-                    numsToCards.Add(i, ranks[i-13] + suits[1]); //rank elements go from 0 to 12
+                    numsToCards.Add(i, ranks[i - 13] + suits[1]); //rank elements go from 0 to 12
                     //so in this and the subsequent ifs, an offset is required
                 }
 
-               if(i >= 26 && i < 39)
+                if (i >= 26 && i < 39)
                 {
-                    numsToCards.Add(i, ranks[i-26] + suits[2]);
+                    numsToCards.Add(i, ranks[i - 26] + suits[2]);
                 }
 
-               if(i >= 39 && i < 52)
+                if (i >= 39 && i < 52)
                 {
-                    numsToCards.Add(i, ranks[i-39] + suits[3]);
+                    numsToCards.Add(i, ranks[i - 39] + suits[3]);
                 }
             }
         }
@@ -69,23 +73,64 @@ namespace BlackjackGame
             }
         }
 
-        public static void testPrint() 
+        public static List<string> dealSomeCards(int numCardsToDeal)
         {
-            TextWriter t;
-            t = new StreamWriter("dictionary.txt");
-                foreach (KeyValuePair<int, String> kvPair in numsToCards)
+            List<string> cards = new List<string>();
+           
+
+
+            for (int i = 0; i < numCardsToDeal; i++)
             {
-                t.WriteLine(kvPair);
+                string card;
+                numsToCards.TryGetValue((deck[i + numDealt]), out card); //get the card associated
+                //with the randomly ordered ints in the deck, adjusting by the number of cards we've
+                //already dealt
+
+                cards.Add(card);
+
+
+
             }
 
-            t.Close();
-                    
 
 
-            
+            numDealt += numCardsToDeal; //keep track of how many cards we've dealt
+                                        //so that we can adjust the index in the line above accordingly
 
-           
-            
+            return cards;
+
         }
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+
+
+
+        public static int[] getDeck()
+        {
+            return deck;
+        }
+
+
     }
+
 }

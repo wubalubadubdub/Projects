@@ -58,20 +58,20 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(362, 270);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(486, 270);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // dealerHand
             // 
+            this.dealerHand.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.dealerHand.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dealerHand.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.dealerHand.Location = new System.Drawing.Point(3, 3);
             this.dealerHand.Multiline = true;
             this.dealerHand.Name = "dealerHand";
             this.dealerHand.ReadOnly = true;
-            this.dealerHand.Size = new System.Drawing.Size(66, 129);
+            this.dealerHand.Size = new System.Drawing.Size(91, 129);
             this.dealerHand.TabIndex = 0;
-            this.dealerHand.Text = "8h 5h";
             this.dealerHand.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.dealerHand.TextChanged += new System.EventHandler(this.dealerHand_TextChanged);
             // 
@@ -82,9 +82,9 @@
             this.flowLayoutPanel1.Controls.Add(this.standBtn);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(75, 138);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(100, 138);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(138, 129);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(188, 129);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // dealBtn
@@ -120,23 +120,25 @@
             // totals
             // 
             this.totals.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.totals.Location = new System.Drawing.Point(75, 3);
+            this.totals.Location = new System.Drawing.Point(100, 3);
             this.totals.Multiline = true;
             this.totals.Name = "totals";
             this.totals.ReadOnly = true;
-            this.totals.Size = new System.Drawing.Size(138, 129);
+            this.totals.Size = new System.Drawing.Size(188, 129);
             this.totals.TabIndex = 2;
             this.totals.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.totals.TextChanged += new System.EventHandler(this.totals_TextChanged);
             // 
             // playerHand
             // 
+            this.playerHand.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.playerHand.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.playerHand.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.playerHand.Location = new System.Drawing.Point(3, 138);
             this.playerHand.Multiline = true;
             this.playerHand.Name = "playerHand";
             this.playerHand.ReadOnly = true;
-            this.playerHand.Size = new System.Drawing.Size(66, 129);
+            this.playerHand.Size = new System.Drawing.Size(91, 129);
             this.playerHand.TabIndex = 3;
             this.playerHand.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.playerHand.TextChanged += new System.EventHandler(this.playerHand_TextChanged);
@@ -144,11 +146,11 @@
             // results
             // 
             this.results.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.results.Location = new System.Drawing.Point(219, 3);
+            this.results.Location = new System.Drawing.Point(294, 3);
             this.results.Multiline = true;
             this.results.Name = "results";
             this.results.ReadOnly = true;
-            this.results.Size = new System.Drawing.Size(140, 129);
+            this.results.Size = new System.Drawing.Size(189, 129);
             this.results.TabIndex = 4;
             this.results.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.results.TextChanged += new System.EventHandler(this.results_TextChanged);
@@ -157,7 +159,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(362, 270);
+            this.ClientSize = new System.Drawing.Size(486, 270);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
             this.Text = "Form1";
