@@ -9,8 +9,10 @@ namespace BlackjackGame
 {
     class BlackjackPlayer
     {
-        List<string> hand = new List<string>(); //contains cards
-        int total; //for keeping track of each player's hand value
+        public List<string> hand = new List<string>(); //contains cards
+
+        //init var for keeping track of each player's hand value
+        public int total;
 
         public static BlackjackPlayer You = new BlackjackPlayer();
         public static BlackjackPlayer Dealer = new BlackjackPlayer();
@@ -29,6 +31,7 @@ namespace BlackjackGame
                 case "dealBtn_Click":
                     cardsToAdd = Blackjack.dealSomeCards(2); //get two cards for me                 
                     this.hand.Add(cardsToAdd[0]); //add first two cards to my hand...
+
                     this.hand.Add(cardsToAdd[1]);    
                     break;
 
@@ -91,7 +94,26 @@ namespace BlackjackGame
             this.hand.Clear();
         }
 
-        
+        public int getTotal()
+        {
+            return total;
+        }
+
+        public void addSomeValues(int num)
+
+        {
+            for (int i = 0; i < num; i++)
+            {
+                int value;
+
+                Blackjack.numsToValue.TryGetValue(
+                    (Blackjack.deck[i + Blackjack.numDealt]), out value);
+
+               this.total += value;
+            }
+        }
+
+
 
 
 

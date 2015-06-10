@@ -9,7 +9,7 @@ namespace BlackjackGame
 {
     class Blackjack
     {
-        private static int[] deck = Enumerable.Range(0, 52).ToArray();
+        public static int[] deck = Enumerable.Range(0, 52).ToArray();
         //first num is where to start, 2nd num is how many nums
         //(includ. start num) you want in the range. that's 52 for 52 cards
         //int a = a[i] = i in the unshuffled deck
@@ -21,6 +21,7 @@ namespace BlackjackGame
 
         public static int numDealt = 0;
 
+        
        
 
 
@@ -28,7 +29,10 @@ namespace BlackjackGame
 
         //associate each number in the int array deck with a string that will 
         //displayed as a card
-        static Dictionary<int, string> numsToCards = new Dictionary<int, string>();
+        public static Dictionary<int, string> numsToCards = new Dictionary<int, string>();
+
+        //associate each number in the int array with a numeric value
+        public static Dictionary<int, int> numsToValue = new Dictionary<int, int>();
 
         public static void associateNumsWithCards()
         {
@@ -59,6 +63,64 @@ namespace BlackjackGame
             }
         }
 
+        public static void associateNumsWithValues()
+        {
+            for(int i = 0; i < 52; i++)
+            {
+                int remainder = i % 13;
+
+                switch(remainder)
+                {
+                    case 0: //i is a multiple of 13
+                        numsToValue.Add(i, 2); //i = 0 corresponds to 2h, 
+                        //i = 13 corresponds to 2d, etc. 
+                        break;
+
+                    case 1: //1+i is a multiple of 13. 1 = 3h, 14 = 3d, etc. 
+                        numsToValue.Add(i, 3);
+                        break;
+
+                    case 2: //2+i is a multiple of 13. 2 = 4h, 15 = 4d, etc. 
+                        numsToValue.Add(i, 4);
+                        break;
+
+                    case 3:
+                        numsToValue.Add(i, 5);
+                        break;
+
+                    case 4:
+                        numsToValue.Add(i, 6);
+                        break;
+
+                    case 5:
+                        numsToValue.Add(i, 7);
+                        break;
+
+                    case 6:
+                        numsToValue.Add(i, 8);
+                        break;
+
+                    case 7:
+                        numsToValue.Add(i, 9);
+                        break;
+
+                        //cases where int reps. 10, J, Q,  or K
+                    case 8:
+                    case 9:
+                    case 10:
+                    case 11:
+                        numsToValue.Add(i, 10);
+                        break;
+
+                    case 12:
+                        numsToValue.Add(i, 11); //count ace as 11, will count as 1 as needed
+                        break;
+
+                }
+                
+            }
+        }
+
         //implement fisher-yates shuffle
         public static void shuffle(int[] deck)
         {
@@ -75,6 +137,7 @@ namespace BlackjackGame
 
         public static List<string> dealSomeCards(int numCardsToDeal)
         {
+            
             List<string> cards = new List<string>();
            
 
@@ -82,12 +145,19 @@ namespace BlackjackGame
             for (int i = 0; i < numCardsToDeal; i++)
             {
                 string card;
+                
                 numsToCards.TryGetValue((deck[i + numDealt]), out card); //get the card associated
                 //with the randomly ordered ints in the deck, adjusting by the number of cards we've
                 //already dealt
 
                 cards.Add(card);
 
+               
+                
+                
+
+
+            
 
 
             }
@@ -100,6 +170,10 @@ namespace BlackjackGame
             return cards;
 
         }
+
+       
+
+        
 
         
 

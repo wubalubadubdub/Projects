@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -16,11 +17,13 @@ namespace BlackjackGame
 
     {
         [DllImport("user32.dll")]
-        static extern bool HideCaret(IntPtr hWnd); 
+        static extern bool HideCaret(IntPtr hWnd);
         //for hiding the blinking cursor in textboxes
 
-      
-       
+        int aceIndex = 0; //for keeping track of aces in the player's hand
+
+
+
 
         public Form1()
         {
@@ -34,7 +37,17 @@ namespace BlackjackGame
             standBtn.Enabled = false;
 
             Blackjack.associateNumsWithCards();
-            
+            Blackjack.associateNumsWithValues();
+
+            //TextWriter t = new StreamWriter("valuesdict.txt");
+            //foreach (KeyValuePair<int, int> pair in Blackjack.numsToValue)
+            //    t.WriteLine(pair);
+            //t.Close();
+
+            //TextWriter t2 = new StreamWriter("dict.txt");
+            //foreach (KeyValuePair<int, string> p2 in Blackjack.numsToCards)
+            //    t2.WriteLine(p2);
+            //t2.Close();
 
           
 
@@ -67,18 +80,35 @@ namespace BlackjackGame
             Blackjack.shuffle(Blackjack.getDeck()); //shuffle before every deal
 
             //clear out previous cards, if any
-            this.clearHands(); 
+            this.clearHands();
+
+            //clear previous scores and states
+            BlackjackPlayer.You.total = 0;
+            BlackjackPlayer.Dealer.total = 0;
+            totals.Text = "";
+            aceIndex = 0;
+
+
+            
 
             //restore default btn states
             dealBtn.Enabled = false;
             hitBtn.Enabled = true;
             standBtn.Enabled = true;
 
+            BlackjackPlayer.You.addSomeValues(2); //adds the value of your cards together
             BlackjackPlayer.You.addToYourHand();
+
+            BlackjackPlayer.Dealer.addSomeValues(1); //dealer only gets one card to start
             BlackjackPlayer.Dealer.addToDealersHand();
+            
+
+            //display hands
             playerHand.Text = BlackjackPlayer.You.displayHand();
             dealerHand.Text = BlackjackPlayer.Dealer.displayHand();
-           
+
+            //display the players' totals
+            displayTotals();
             
 
         }
@@ -86,8 +116,14 @@ namespace BlackjackGame
         private void hitBtn_Click(object sender, EventArgs e)
         {
             dealBtn.Enabled = false;
+            BlackjackPlayer.You.addSomeValues(1);
+            displayTotals();
+            
+            
             BlackjackPlayer.You.addToYourHand();
+           
             playerHand.Text = BlackjackPlayer.You.displayHand();
+            checkPlayerTotal(); //checks to see if we're over 21
 
         }
 
@@ -120,6 +156,41 @@ namespace BlackjackGame
             playerHand.Text = "";
             dealerHand.Text = "";
             Blackjack.numDealt = 0; //reset counter of cards dealt
+        }
+
+        private void displayTotals()
+        {
+            totals.Text = "You: " + BlackjackPlayer.You.getTotal() + 
+                "  Dealer: " + BlackjackPlayer.Dealer.getTotal();
+        }
+
+        private void checkPlayerTotal()
+        {
+            int yourTotal = BlackjackPlayer.You.getTotal();
+            string yourHand = string.Join(" ", BlackjackPlayer.You.hand.ToArray());
+
+            
+            
+
+            //checks to see if your total is over 21. if it is, it checks to see if
+            //you have an ace you haven't used yet, and if you do, subtracts 10 from 
+            //your total
+            if(yourTotal > 21)
+            {
+                if (yourHand.IndexOf('A', 0 + aceIndex) != -1) {
+                    BlackjackPlayer.You.total -= 10;
+                    displayTotals();
+                    aceIndex = yourHand.IndexOf('A') + 1;
+                   
+                }
+                else
+                {
+                    dealBtn.Enabled = true;
+                    hitBtn.Enabled = false;
+                    standBtn.Enabled = false;
+                    totals.Text = yourTotal + ": Bust!";
+                }
+            }
         }
 
         
