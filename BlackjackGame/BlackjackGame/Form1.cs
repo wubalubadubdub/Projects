@@ -168,6 +168,7 @@ namespace BlackjackGame
         {
             int yourTotal = BlackjackPlayer.You.getTotal();
             string yourHand = string.Join(" ", BlackjackPlayer.You.hand.ToArray());
+            int aceLoc = yourHand.IndexOf('A', aceIndex);
 
             
             
@@ -177,10 +178,10 @@ namespace BlackjackGame
             //your total
             if(yourTotal > 21)
             {
-                if (yourHand.IndexOf('A', 0 + aceIndex) != -1) {
-                    BlackjackPlayer.You.total -= 10;
+                if (aceLoc != -1) {
+                    BlackjackPlayer.You.total -= 10;               
                     displayTotals();
-                    aceIndex = yourHand.IndexOf('A') + 1;
+                    aceIndex = aceLoc + 1;
                    
                 }
                 else
@@ -189,6 +190,14 @@ namespace BlackjackGame
                     hitBtn.Enabled = false;
                     standBtn.Enabled = false;
                     totals.Text = yourTotal + ": Bust!";
+                }
+            }
+            else if(yourTotal < 21) //we need to count the ace even if its value will be 11 
+                
+            {
+                if (aceLoc != -1)
+                {
+                    aceIndex = aceLoc + 1;
                 }
             }
         }
