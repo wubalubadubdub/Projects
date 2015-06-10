@@ -19,7 +19,7 @@ namespace BlackjackGame
             "10", "J", "Q", "K", "A" };
         static string[] suits = { "h", "s", "c", "d" };
 
-        static int numDealt = 0;
+        public static int numDealt = 0;
 
        
 

@@ -19,19 +19,24 @@ namespace BlackjackGame
         static extern bool HideCaret(IntPtr hWnd); 
         //for hiding the blinking cursor in textboxes
 
+      
+       
 
         public Form1()
         {
            
 
             InitializeComponent();
-            
+
+            //starting states for the three buttons
+            dealBtn.Enabled = true;
+            hitBtn.Enabled = false;
+            standBtn.Enabled = false;
+
             Blackjack.associateNumsWithCards();
-            Blackjack.shuffle(Blackjack.getDeck());
+            
 
-            //playerHand.Text = BlackjackPlayer.You.getHand().ToString();
-            //dealerHand.Text = BlackjackPlayer.Dealer.getHand().ToString();
-
+          
 
 
 
@@ -59,10 +64,20 @@ namespace BlackjackGame
 
         private void dealBtn_Click(object sender, EventArgs e)
         {
+            Blackjack.shuffle(Blackjack.getDeck()); //shuffle before every deal
+
+            //clear out previous cards, if any
+            this.clearHands(); 
+
+            //restore default btn states
+            dealBtn.Enabled = false;
+            hitBtn.Enabled = true;
+            standBtn.Enabled = true;
+
             BlackjackPlayer.You.addToYourHand();
             BlackjackPlayer.Dealer.addToDealersHand();
-            playerHand.Text = BlackjackPlayer.You.getHand();
-            dealerHand.Text = BlackjackPlayer.Dealer.getHand();
+            playerHand.Text = BlackjackPlayer.You.displayHand();
+            dealerHand.Text = BlackjackPlayer.Dealer.displayHand();
            
             
 
@@ -70,19 +85,43 @@ namespace BlackjackGame
 
         private void hitBtn_Click(object sender, EventArgs e)
         {
+            dealBtn.Enabled = false;
+            BlackjackPlayer.You.addToYourHand();
+            playerHand.Text = BlackjackPlayer.You.displayHand();
 
         }
 
         private void standBtn_Click(object sender, EventArgs e)
         {
+            dealBtn.Enabled = true;
+            hitBtn.Enabled = false;
+            standBtn.Enabled = false;
 
-        }
-
-        public static void displayYourHand()
-        {
             
-           
-                 
+             
+
+            //give the dealer another card and display it
+            BlackjackPlayer.Dealer.addToDealersHand();
+            dealerHand.Text = BlackjackPlayer.Dealer.displayHand();
+
+
+            //TODO: call method that makes dealer draw according to 
+            //predefined rules
+
         }
+
+        private void clearHands()
+        {
+
+            //set each player's hand to contain nothing and clear the displayed
+            //cards from the screen
+            BlackjackPlayer.You.emptyHand();
+            BlackjackPlayer.Dealer.emptyHand();
+            playerHand.Text = "";
+            dealerHand.Text = "";
+            Blackjack.numDealt = 0; //reset counter of cards dealt
+        }
+
+        
     }
 }

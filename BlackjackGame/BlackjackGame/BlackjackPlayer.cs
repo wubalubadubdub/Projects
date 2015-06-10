@@ -55,13 +55,19 @@ namespace BlackjackGame
             switch (memberName)
             {
                 case "dealBtn_Click":
-                    cardsToAdd = Blackjack.dealSomeCards(2); //get two cards for me
-                    this.hand.Add(cardsToAdd[0]); //add first two cards to my hand...
-                    this.hand.Add(cardsToAdd[1]);
+                    cardsToAdd = Blackjack.dealSomeCards(1); //get one card for dealer
+                    this.hand.Add(cardsToAdd[0]); //add card to dealer's hand
+                    this.hand.Add("XX"); //represents hole card of dealer
+                   
                     break;
 
                 case "standBtn_Click":
-                   //TODO: implement logic for when dealer should stop getting cards
+                    //TODO: implement logic for when dealer should stop getting cards
+
+                    this.hand.RemoveAt(1); //removes "XX" from dealer's hand
+                    cardsToAdd = Blackjack.dealSomeCards(1); //dealer gets his hole card 
+                    this.hand.Add(cardsToAdd[0]);
+
                     break;
 
                 default:
@@ -71,10 +77,18 @@ namespace BlackjackGame
 
         }
 
-        public string getHand()
+        public string displayHand()
         {
-            return string.Join(" ", hand.ToArray());
+            return string.Join(" ", hand.ToArray()); //converts List<string> into a string with
+            //elements separated by a space
 
+        }
+
+        
+
+        public void emptyHand()
+        {
+            this.hand.Clear();
         }
 
         
