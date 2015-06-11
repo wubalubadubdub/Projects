@@ -31,7 +31,6 @@ namespace BlackjackGame
                 case "dealBtn_Click":
                     cardsToAdd = Blackjack.dealSomeCards(2); //get two cards for me                 
                     this.hand.Add(cardsToAdd[0]); //add first two cards to my hand...
-
                     this.hand.Add(cardsToAdd[1]);    
                     break;
 
@@ -82,7 +81,7 @@ namespace BlackjackGame
 
         public string displayHand()
         {
-            return string.Join(" ", hand.ToArray()); //converts List<string> into a string with
+            return string.Join(" ", hand.ToArray());//converts List<string> into a string with
             //elements separated by a space
 
         }

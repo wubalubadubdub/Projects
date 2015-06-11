@@ -16,9 +16,7 @@ namespace BlackjackGame
 
 
     {
-        [DllImport("user32.dll")]
-        static extern bool HideCaret(IntPtr hWnd);
-        //for hiding the blinking cursor in textboxes
+       
 
         int aceIndex = 0; //for keeping track of aces in the player's hand
 
@@ -57,22 +55,22 @@ namespace BlackjackGame
 
         private void dealerHand_TextChanged(object sender, EventArgs e)
         {
-            HideCaret(dealerHand.Handle);
+            
         }
 
         private void playerHand_TextChanged(object sender, EventArgs e)
         {
-            HideCaret(playerHand.Handle);
+            
         }
 
         private void totals_TextChanged(object sender, EventArgs e)
         {
-            HideCaret(totals.Handle);
+            
         }
 
         private void results_TextChanged(object sender, EventArgs e)
         {
-            HideCaret(results.Handle);
+            
         }
 
         private void dealBtn_Click(object sender, EventArgs e)
@@ -97,8 +95,9 @@ namespace BlackjackGame
             standBtn.Enabled = true;
 
             BlackjackPlayer.You.addSomeValues(2); //adds the value of your cards together
-            BlackjackPlayer.You.addToYourHand();
-
+            BlackjackPlayer.You.addToYourHand(); //we have two cards in our hand as a list of str
+            //when this call finishes
+           
             BlackjackPlayer.Dealer.addSomeValues(1); //dealer only gets one card to start
             BlackjackPlayer.Dealer.addToDealersHand();
             
@@ -109,14 +108,19 @@ namespace BlackjackGame
 
             //display the players' totals
             displayTotals();
-            
+
+            checkPlayerTotal(); //checks to see if we have blackjack
+            //this needs to be called after displayTotals because otherwise the text would 
+            //just be reset to our score and we wouldn't see the "Blackjack!" message
+
+
 
         }
 
         private void hitBtn_Click(object sender, EventArgs e)
         {
             dealBtn.Enabled = false;
-            BlackjackPlayer.You.addSomeValues(1);
+            BlackjackPlayer.You.addSomeValues(1); //must come before addToYourHand
             displayTotals();
             
             
@@ -133,12 +137,14 @@ namespace BlackjackGame
             hitBtn.Enabled = false;
             standBtn.Enabled = false;
 
-            
-             
+
+
 
             //give the dealer another card and display it
+            BlackjackPlayer.Dealer.addSomeValues(1);
             BlackjackPlayer.Dealer.addToDealersHand();
             dealerHand.Text = BlackjackPlayer.Dealer.displayHand();
+            displayTotals();
 
 
             //TODO: call method that makes dealer draw according to 
@@ -169,20 +175,23 @@ namespace BlackjackGame
             int yourTotal = BlackjackPlayer.You.getTotal();
             string yourHand = string.Join(" ", BlackjackPlayer.You.hand.ToArray());
             int aceLoc = yourHand.IndexOf('A', aceIndex);
+            int numCards = BlackjackPlayer.You.hand.Count;
+          
 
-            
-            
+
+
 
             //checks to see if your total is over 21. if it is, it checks to see if
             //you have an ace you haven't used yet, and if you do, subtracts 10 from 
             //your total
-            if(yourTotal > 21)
+            if (yourTotal > 21)
             {
-                if (aceLoc != -1) {
-                    BlackjackPlayer.You.total -= 10;               
+                if (aceLoc != -1)
+                {
+                    BlackjackPlayer.You.total -= 10;
                     displayTotals();
                     aceIndex = aceLoc + 1;
-                   
+
                 }
                 else
                 {
@@ -192,16 +201,96 @@ namespace BlackjackGame
                     totals.Text = yourTotal + ": Bust!";
                 }
             }
-            else if(yourTotal < 21) //we need to count the ace even if its value will be 11 
+
+
+
+            else if (yourTotal == 21 && numCards == 2) //if player has blackjack
+
+            {
+                BlackjackPlayer.Dealer.hand.RemoveAt(1); //removes "XX" from dealer's hand
+                BlackjackPlayer.Dealer.addSomeValues(1); //dealer needs a second card
+                //immediately if we get a blackjack, so that he has a chance for one as well
+                BlackjackPlayer.Dealer.addToDealersHand();
+                dealerHand.Text = BlackjackPlayer.Dealer.displayHand();
+
+
+
+                if (BlackjackPlayer.Dealer.total == 21 &&
+                    BlackjackPlayer.Dealer.hand.Count == 2)
+                {
+                    dealBtn.Enabled = true;
+                    hitBtn.Enabled = false;
+                    standBtn.Enabled = false;
+                    totals.Text = "You both have blackjack! It's a push";
+
+                }
+
+                else
+                {
+                    dealBtn.Enabled = true;
+                    hitBtn.Enabled = false;
+                    standBtn.Enabled = false;
+                    totals.Text = "Blackjack! You win!";
+                }
                 
+            }
+
+
+        }
+
+        private void checkDealerTotal()
+        {
+            int dealerTotal = BlackjackPlayer.Dealer.getTotal();
+            string dealerHand = string.Join(" ", BlackjackPlayer.Dealer.hand.ToArray());
+            int aceLoc = dealerHand.IndexOf('A', aceIndex); //aceLocal and numCards are local vars
+            int numCards = BlackjackPlayer.Dealer.hand.Count;
+
+            if (dealerTotal > 21)
             {
                 if (aceLoc != -1)
                 {
+                    BlackjackPlayer.Dealer.total -= 10;
+                    displayTotals();
                     aceIndex = aceLoc + 1;
+
+                }
+                else
+                {
+                    dealBtn.Enabled = true;
+                    hitBtn.Enabled = false;
+                    standBtn.Enabled = false;
+                    totals.Text = dealerTotal + ": Dealer Bust!";
                 }
             }
+
+
+
+            else if (dealerTotal == 21 && numCards == 2) //if dealer has blackjack
+
+            {
+                if(BlackjackPlayer.You.total == 21 && 
+                    BlackjackPlayer.You.hand.Count == 2)
+                {
+                    dealBtn.Enabled = true;
+                    hitBtn.Enabled = false;
+                    standBtn.Enabled = false;
+                    totals.Text = "You both have blackjack! It's a push.";
+                }
+
+                else
+                {
+                    dealBtn.Enabled = true;
+                    hitBtn.Enabled = false;
+                    standBtn.Enabled = false;
+                    totals.Text = "Dealer has blackjack. Dealer wins.";
+                }
+                
+            }
+
+
+
         }
 
-        
+
     }
 }
