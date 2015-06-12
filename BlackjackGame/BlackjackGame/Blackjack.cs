@@ -21,10 +21,6 @@ namespace BlackjackGame
 
         public static int numDealt = 0;
 
-        
-       
-
-
         private static Random r = new Random();
 
         //associate each number in the int array deck with a string that will 
@@ -151,53 +147,13 @@ namespace BlackjackGame
                 //already dealt
 
                 cards.Add(card);
-
-               
-                
-                
-
-
-            
-
-
             }
-
-
 
             numDealt += numCardsToDeal; //keep track of how many cards we've dealt
                                         //so that we can adjust the index in the line above accordingly
-
             return cards;
 
         }
-
-       
-
-        
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-       
-
-
 
         public static int[] getDeck()
         {

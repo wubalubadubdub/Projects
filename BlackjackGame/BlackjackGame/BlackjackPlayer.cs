@@ -9,6 +9,7 @@ namespace BlackjackGame
 {
     class BlackjackPlayer
     {
+        
         public List<string> hand = new List<string>(); //contains cards
 
         //init var for keeping track of each player's hand value
@@ -57,32 +58,53 @@ namespace BlackjackGame
             switch (memberName)
             {
                 case "dealBtn_Click":
-                    cardsToAdd = Blackjack.dealSomeCards(1); //get one card for dealer
-                    this.hand.Add(cardsToAdd[0]); //add card to dealer's hand
-                    this.hand.Add("XX"); //represents hole card of dealer
-                   
+                    cardsToAdd = Blackjack.dealSomeCards(2); //get two cards for dealer
+                    this.hand.Add(cardsToAdd[0]); //add cards to dealer's hand
+                    this.hand.Add(cardsToAdd[1]);                                    
                     break;
 
                 case "standBtn_Click":
                     //TODO: implement logic for when dealer should stop getting cards
+                    
 
-                    this.hand.RemoveAt(1); //removes "XX" from dealer's hand
-                    cardsToAdd = Blackjack.dealSomeCards(1); //dealer gets his hole card 
-                    this.hand.Add(cardsToAdd[0]);
+
 
                     break;
+
+                
+
 
                 default:
                     break;
 
             }
+            
+
+            if(Form1.playerHasStood)
+            {
+                
+                cardsToAdd = Blackjack.dealSomeCards(1);
+                this.hand.Add(cardsToAdd[0]);
+            }
+
+
 
         }
 
-        public string displayHand()
+        public string displayPlayerHand()
         {
             return string.Join(" ", hand.ToArray());//converts List<string> into a string with
             //elements separated by a space
+
+        }
+
+        public string displayDealerHand() //only call for initial deal
+        {
+           
+            string temp = String.Join(" ", hand);
+            string holeCardCensored = temp.Replace(hand[1], "XX");
+            return holeCardCensored;
+            
 
         }
 

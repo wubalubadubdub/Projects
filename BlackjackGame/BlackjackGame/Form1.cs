@@ -16,16 +16,17 @@ namespace BlackjackGame
 
 
     {
-       
+
 
         int aceIndex = 0; //for keeping track of aces in the player's hand
+        public static bool playerHasStood = false;
 
 
 
 
         public Form1()
         {
-           
+
 
             InitializeComponent();
 
@@ -47,7 +48,7 @@ namespace BlackjackGame
             //    t2.WriteLine(p2);
             //t2.Close();
 
-          
+
 
 
 
@@ -55,22 +56,22 @@ namespace BlackjackGame
 
         private void dealerHand_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void playerHand_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void totals_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void results_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void dealBtn_Click(object sender, EventArgs e)
@@ -85,9 +86,10 @@ namespace BlackjackGame
             BlackjackPlayer.Dealer.total = 0;
             totals.Text = "";
             aceIndex = 0;
+            playerHasStood = false;
 
 
-            
+
 
             //restore default btn states
             dealBtn.Enabled = false;
@@ -96,22 +98,27 @@ namespace BlackjackGame
 
             BlackjackPlayer.You.addSomeValues(2); //adds the value of your cards together
             BlackjackPlayer.You.addToYourHand(); //we have two cards in our hand as a list of str
-            //when this call finishes
-           
-            BlackjackPlayer.Dealer.addSomeValues(1); //dealer only gets one card to start
+                                                 //when this call finishes
+
+            //we want to add the dealer's cards together but not show their sum until the stand
+            //button has been clicked
+            BlackjackPlayer.Dealer.addSomeValues(2);
             BlackjackPlayer.Dealer.addToDealersHand();
-            
+
 
             //display hands
-            playerHand.Text = BlackjackPlayer.You.displayHand();
-            dealerHand.Text = BlackjackPlayer.Dealer.displayHand();
+            playerHand.Text = BlackjackPlayer.You.displayPlayerHand();
+            dealerHand.Text = BlackjackPlayer.Dealer.displayDealerHand();
 
             //display the players' totals
             displayTotals();
 
             checkPlayerTotal(); //checks to see if we have blackjack
-            //this needs to be called after displayTotals because otherwise the text would 
-            //just be reset to our score and we wouldn't see the "Blackjack!" message
+                                //this needs to be called after displayTotals because otherwise the text would 
+                                //just be reset to our score and we wouldn't see the "Blackjack!" message
+
+            checkDealerTotal(); //checks to see if dealer has blackjack
+
 
 
 
@@ -122,34 +129,27 @@ namespace BlackjackGame
             dealBtn.Enabled = false;
             BlackjackPlayer.You.addSomeValues(1); //must come before addToYourHand
             displayTotals();
-            
-            
+
+
             BlackjackPlayer.You.addToYourHand();
-           
-            playerHand.Text = BlackjackPlayer.You.displayHand();
+            playerHand.Text = BlackjackPlayer.You.displayPlayerHand();
             checkPlayerTotal(); //checks to see if we're over 21
 
         }
 
         private void standBtn_Click(object sender, EventArgs e)
         {
+            //set button states and flag for player having stood so that the 
+            //dealer's second card will be revealed
             dealBtn.Enabled = true;
             hitBtn.Enabled = false;
             standBtn.Enabled = false;
+            playerHasStood = true;
 
+            showDealerHoleCard();
 
-
-
-            //give the dealer another card and display it
-            BlackjackPlayer.Dealer.addSomeValues(1);
-            BlackjackPlayer.Dealer.addToDealersHand();
-            dealerHand.Text = BlackjackPlayer.Dealer.displayHand();
-            displayTotals();
-
-
-            //TODO: call method that makes dealer draw according to 
-            //predefined rules
-
+            dealerDraw(); // makes dealer draw according to predefined rules
+                          
         }
 
         private void clearHands()
@@ -166,8 +166,25 @@ namespace BlackjackGame
 
         private void displayTotals()
         {
-            totals.Text = "You: " + BlackjackPlayer.You.getTotal() + 
-                "  Dealer: " + BlackjackPlayer.Dealer.getTotal();
+            //remove the value of the 2nd dealer card if player hasn't stood yet
+
+
+
+            int dealersSecondCard;
+
+            Blackjack.numsToValue.TryGetValue(Blackjack.deck[3], out dealersSecondCard);
+
+            int hiddenTotal = BlackjackPlayer.Dealer.getTotal() - dealersSecondCard;
+
+            //if player has stood or if player has blackjack, display the full totals for both players
+            if (playerHasStood || (BlackjackPlayer.You.total == 21 &&
+                BlackjackPlayer.You.hand.Count == 2))
+                totals.Text = "You: " + BlackjackPlayer.You.getTotal() +
+                    "  Dealer: " + BlackjackPlayer.Dealer.getTotal();
+
+            else
+                totals.Text = "You: " + BlackjackPlayer.You.getTotal() +
+                     "  Dealer: " + hiddenTotal;
         }
 
         private void checkPlayerTotal()
@@ -176,7 +193,7 @@ namespace BlackjackGame
             string yourHand = string.Join(" ", BlackjackPlayer.You.hand.ToArray());
             int aceLoc = yourHand.IndexOf('A', aceIndex);
             int numCards = BlackjackPlayer.You.hand.Count;
-          
+
 
 
 
@@ -207,32 +224,28 @@ namespace BlackjackGame
             else if (yourTotal == 21 && numCards == 2) //if player has blackjack
 
             {
-                BlackjackPlayer.Dealer.hand.RemoveAt(1); //removes "XX" from dealer's hand
-                BlackjackPlayer.Dealer.addSomeValues(1); //dealer needs a second card
-                //immediately if we get a blackjack, so that he has a chance for one as well
-                BlackjackPlayer.Dealer.addToDealersHand();
-                dealerHand.Text = BlackjackPlayer.Dealer.displayHand();
+                dealBtn.Enabled = true;
+                hitBtn.Enabled = false;
+                standBtn.Enabled = false;
+
+                showDealerHoleCard();
 
 
 
                 if (BlackjackPlayer.Dealer.total == 21 &&
                     BlackjackPlayer.Dealer.hand.Count == 2)
                 {
-                    dealBtn.Enabled = true;
-                    hitBtn.Enabled = false;
-                    standBtn.Enabled = false;
+
                     totals.Text = "You both have blackjack! It's a push";
 
                 }
 
                 else
                 {
-                    dealBtn.Enabled = true;
-                    hitBtn.Enabled = false;
-                    standBtn.Enabled = false;
+
                     totals.Text = "Blackjack! You win!";
                 }
-                
+
             }
 
 
@@ -268,13 +281,15 @@ namespace BlackjackGame
             else if (dealerTotal == 21 && numCards == 2) //if dealer has blackjack
 
             {
-                if(BlackjackPlayer.You.total == 21 && 
+                showDealerHoleCard();
+
+                if (BlackjackPlayer.You.total == 21 &&  //if player also has blackjack
                     BlackjackPlayer.You.hand.Count == 2)
                 {
                     dealBtn.Enabled = true;
                     hitBtn.Enabled = false;
                     standBtn.Enabled = false;
-                    totals.Text = "You both have blackjack! It's a push.";
+                    totals.Text = "You both have blackjack! It's a tie.";
                 }
 
                 else
@@ -284,13 +299,38 @@ namespace BlackjackGame
                     standBtn.Enabled = false;
                     totals.Text = "Dealer has blackjack. Dealer wins.";
                 }
-                
+
             }
 
 
 
         }
 
+        public void showDealerHoleCard()
+        {
+            dealerHand.Text = String.Join(" ", BlackjackPlayer.Dealer.hand);
+            //the hand still actually contains both cards. we only created a string
+            //and replaced the second card with XX, and this sets the text to both
+            //of the dealer's actual cards
+        }
 
+        public void dealerDraw()
+        {
+            while (BlackjackPlayer.Dealer.getTotal() < 17)
+            {   //dealer stands on any 17
+                BlackjackPlayer.Dealer.addSomeValues(1);
+                BlackjackPlayer.Dealer.addToDealersHand();
+
+            }
+
+            displayTotals();
+            showDealerHoleCard(); //problem with line below           
+            dealBtn.Enabled = true;
+            hitBtn.Enabled = false;
+            standBtn.Enabled = false;
+
+
+
+        }
     }
 }
