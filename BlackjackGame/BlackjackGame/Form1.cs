@@ -38,20 +38,7 @@ namespace BlackjackGame
             Blackjack.associateNumsWithCards();
             Blackjack.associateNumsWithValues();
 
-            //TextWriter t = new StreamWriter("valuesdict.txt");
-            //foreach (KeyValuePair<int, int> pair in Blackjack.numsToValue)
-            //    t.WriteLine(pair);
-            //t.Close();
-
-            //TextWriter t2 = new StreamWriter("dict.txt");
-            //foreach (KeyValuePair<int, string> p2 in Blackjack.numsToCards)
-            //    t2.WriteLine(p2);
-            //t2.Close();
-
-
-
-
-
+           
         }
 
         private void dealerHand_TextChanged(object sender, EventArgs e)
@@ -320,11 +307,14 @@ namespace BlackjackGame
             {   //dealer stands on any 17
                 BlackjackPlayer.Dealer.addSomeValues(1);
                 BlackjackPlayer.Dealer.addToDealersHand();
+                checkDealerTotal();
 
             }
 
+
             displayTotals();
-            showDealerHoleCard(); //problem with line below           
+           
+            showDealerHoleCard();       
             dealBtn.Enabled = true;
             hitBtn.Enabled = false;
             standBtn.Enabled = false;

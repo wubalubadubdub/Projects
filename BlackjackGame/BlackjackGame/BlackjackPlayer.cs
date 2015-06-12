@@ -63,17 +63,6 @@ namespace BlackjackGame
                     this.hand.Add(cardsToAdd[1]);                                    
                     break;
 
-                case "standBtn_Click":
-                    //TODO: implement logic for when dealer should stop getting cards
-                    
-
-
-
-                    break;
-
-                
-
-
                 default:
                     break;
 
